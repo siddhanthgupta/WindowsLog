@@ -75,7 +75,7 @@ class LogReader(object):
                 raise RuntimeError("Cannot find the record specified.")
 #             sys.stdout.write(record.data())
             record_str = evtx_record_xml_view(record)
-            print record_str
+#             print record_str
             return record_str
 
     def getEventCount(self, filename):
@@ -91,11 +91,11 @@ class LogReader(object):
                 for chunk in fh.chunks():
                     for record in chunk.records():
                         count += 1
-                print count, "events found"
+#                 print count, "events found"
                 return count
 
-if __name__ == '__main__':
-    log_reader = LogReader()
-    log_reader.getEventCount('OAlerts.evtx')
-#     log_reader.readLogFile('OAlerts.evtx')
-    log_reader.getRecord('OAlerts.evtx', 1)
+# if __name__ == '__main__':
+#     log_reader = LogReader()
+#     log_reader.getEventCount('OAlerts.evtx')
+# #     log_reader.readLogFile('OAlerts.evtx')
+#     log_reader.getRecord('OAlerts.evtx', 1)

@@ -6,6 +6,7 @@ Created on 13-Apr-2016
 import logging
 import os
 from watchdog.events import FileSystemEventHandler
+from UnitedWeStand import UnitedWeStand
 
 
 class WatcherEventHandler(FileSystemEventHandler):
@@ -40,3 +41,7 @@ class WatcherEventHandler(FileSystemEventHandler):
 #         print filename, filetype
         if(filetype == '.evtx'):
             print 'Log file', filename, 'updated'
+            UnitedWeStand.update_file_entry(
+                self,
+                (str)(filename).strip() +
+                (str)(filetype).strip())
