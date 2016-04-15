@@ -5,6 +5,8 @@ Created on 15-Apr-2016
 '''
 
 import os
+import traceback
+
 from DatabaseConnect import DatabaseHandler
 from LogReader import log_dir_linux, log_dir_windows, LogReader
 
@@ -33,7 +35,7 @@ class UnitedWeStand(object):
                 index += 1
                 self.send_record(filename, record)
         except RuntimeError:
-            return index
+            return index - 1
 
     def update_file_entry(self, filename):
         with DatabaseHandler() as d:
@@ -53,13 +55,17 @@ class UnitedWeStand(object):
             filename, filetype = os.path.splitext(file)
             if(filetype == '.evtx'):
                 print 'Initialization: updating entry for', file
-                self.update_file_entry(file)
+                try:
+                    self.update_file_entry(file)
+                except Exception:
+                    traceback.print_exc()
         x = DatabaseHandler()
         x.get_all_records()
 
 if __name__ == '__main__':
     x = UnitedWeStand()
-    x.update_file_entry('Security.evtx')
-    y = DatabaseHandler()
-    y.get_all_records()
+#     x.update_file_entry('Security.evtx')
+#     y = DatabaseHandler()
+#     y.get_all_records()
+    x.intialize_database()
 #     x.intialize_database()
